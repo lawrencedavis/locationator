@@ -40,7 +40,7 @@ Return the postal (zip) code of an address:
     
 Return the properly formatted version of an address
 
-    $ Locationator.zip("800 W. Huron St Chicago, IL")
+    $ Locationator.format("800 W. Huron St Chicago, IL")
     => "800 West Huron Street, Chicago, IL 60642, USA"
 
 ## Contributing
