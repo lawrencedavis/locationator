@@ -18,17 +18,30 @@ Or install it yourself as:
 
 There are 3 methods in this gem:
 
-    Locationator.lat("800 W. Huron St Chicago, IL")
+Return the latitude of an address:
 
-will return the latitude.
+    $ Locationator.lat("800 W. Huron St Chicago, IL")
+    => 41.895347
 
-    Locationator.lng("800 W. Huron St Chicago, IL")
+Return the longitude of an address:
 
-will return the longitude
+    $ Locationator.lng("800 W. Huron St Chicago, IL")
+    => -87.648072
 
-    Locationator.lat_lng("800 W. Huron St Chicago, IL")
+Return an array of the latitude and longitude of an address:
 
-will return an array of the latitude and longitude.
+    $ Locationator.lat_lng("800 W. Huron St Chicago, IL")
+    => [41.895347, -87.648072]
+
+Return the postal (zip) code of an address:
+
+    $ Locationator.zip("800 W. Huron St Chicago, IL")
+    => "60642"
+    
+Return the properly formatted version of an address
+
+    $ Locationator.zip("800 W. Huron St Chicago, IL")
+    => "800 West Huron Street, Chicago, IL 60642, USA"
 
 ## Contributing
 
