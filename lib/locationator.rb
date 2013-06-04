@@ -8,21 +8,13 @@ module Locationator
   # Returns the latitude
   def self.lat(address)
     geocodeResponse = get_data(address)
-    if geocodeResponse["status"] == "ZERO_RESULTS"
-      lat = "Address not found."
-    else
-      lat = geocodeResponse["results"][0]["geometry"]["location"]["lat"]
-    end
+    result = geocodeResponse["status"] == "ZERO_RESULTS" ? "Address not found." : geocodeResponse["results"][0]["geometry"]["location"]["lat"]
   end
 
   # Returns the longitude
   def self.lng(address)
     geocodeResponse = get_data(address)
-    if geocodeResponse["status"] == "ZERO_RESULTS"
-      lng = "Address not found."
-    else
-      lng = geocodeResponse["results"][0]["geometry"]["location"]["lng"]
-    end
+    result = geocodeResponse["status"] == "ZERO_RESULTS" ? "Address not found." : geocodeResponse["results"][0]["geometry"]["location"]["lng"]
   end
 
   # Builds an array of the latitude and longitude
@@ -30,11 +22,7 @@ module Locationator
     lat_lng_array = []
     lat_lng_array.push(self.lat(address))
     lat_lng_array.push(self.lng(address))
-    if lat_lng_array == ["Address not found.", "Address not found."]
-      lat_lng_array = "Address not found."
-    else
-      lat_lng_array
-    end
+    result = lat_lng_array == ["Address not found.", "Address not found."] ? "Address not found." : lat_lng_array 
   end
 
   # Returns the zip code for an address
@@ -53,11 +41,7 @@ module Locationator
   # Returns a properly formatted address
   def self.format(address)
     geocodeResponse = get_data(address)
-    if geocodeResponse["status"] == "ZERO_RESULTS"
-      formatted = "Address not found."
-    else
-      formatted = geocodeResponse["results"][0]["formatted_address"]
-    end
+    result = geocodeResponse["status"] == "ZERO_RESULTS" ? "Address not found." : geocodeResponse["results"][0]["formatted_address"] 
   end
 
   private

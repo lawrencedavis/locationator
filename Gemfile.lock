@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    locationator (0.0.6)
+    locationator (0.1.0)
 
 GEM
   remote: https://rubygems.org/
