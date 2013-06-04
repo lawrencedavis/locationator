@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["lawrence@lrdiv.com"]
   spec.description   = %q{Get location information.}
   spec.summary       = %q{Use Google's geocoding services to get information about any address.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/lawrencedavis/locationator"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
