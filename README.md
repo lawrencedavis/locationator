@@ -1,4 +1,4 @@
-A lightweight geocoder gem that returns an array of the latitude and longitude for an address.
+A lightweight geocoder gem that uses Google Maps' geocoder service to return basic information about an address including latitude, longitude, zip code, and formatted Address
 
 ## Installation
 
