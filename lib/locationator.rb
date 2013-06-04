@@ -44,6 +44,26 @@ module Locationator
     result = geocodeResponse["status"] == "ZERO_RESULTS" ? "Address not found." : geocodeResponse["results"][0]["formatted_address"] 
   end
 
+  # Returns the latitude based on the current user's IP address
+  def self.ip_lat
+    geocodeResponse = get_ip_data
+    result = geocodeResponse["latitude"]
+  end
+
+  # Returns the longitude based on the current user's IP address
+  def self.ip_lng
+    geocodeResponse = get_ip_data
+    result = geocodeResponse["longitude"]
+  end
+
+  # Returns an array of the latitude and longitude based on the current user's IP address
+  def self.ip_lat_lng
+    myArray = []
+    myArray.push(self.ip_lat)
+    myArray.push(self.ip_lng)
+    result = myArray
+  end
+
   private
     
     # Builds the URL that we need to get our JSON response from Google
@@ -53,6 +73,12 @@ module Locationator
       geocodeSensor = "&sensor=false"
       geocodeURL = geocodePrimary + geocodeAddress + geocodeSensor
       response = Net::HTTP.get_response(URI.parse(geocodeURL))
+      data = JSON.parse(response.body)
+    end
+
+    def self.get_ip_data
+      geocodePrimary = "http://freegeoip.net/json/"
+      response = Net::HTTP.get_response(URI.parse(geocodePrimary))
       data = JSON.parse(response.body)
     end
 
