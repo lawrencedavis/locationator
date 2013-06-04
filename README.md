@@ -16,7 +16,7 @@ Or install it yourself as:
 
 ## Usage
 
-There are 3 methods in this gem:
+There are 5 methods in this gem:
 
 Return the latitude of an address:
 
