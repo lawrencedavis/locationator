@@ -8,13 +8,21 @@ module Locationator
   # Returns the latitude
   def self.lat(address)
     geocodeResponse = get_data(address)
-    lat = geocodeResponse["results"][0]["geometry"]["location"]["lat"]
+    if geocodeResponse["status"] == "ZERO_RESULTS"
+      lat = "Address not found."
+    else
+      lat = geocodeResponse["results"][0]["geometry"]["location"]["lat"]
+    end
   end
 
   # Returns the longitude
   def self.lng(address)
     geocodeResponse = get_data(address)
-    lng = geocodeResponse["results"][0]["geometry"]["location"]["lng"]
+    if geocodeResponse["status"] == "ZERO_RESULTS"
+      lng = "Address not found."
+    else
+      lng = geocodeResponse["results"][0]["geometry"]["location"]["lng"]
+    end
   end
 
   # Builds an array of the latitude and longitude
@@ -22,21 +30,34 @@ module Locationator
     lat_lng_array = []
     lat_lng_array.push(self.lat(address))
     lat_lng_array.push(self.lng(address))
+    if lat_lng_array == ["Address not found.", "Address not found."]
+      lat_lng_array = "Address not found."
+    else
+      lat_lng_array
+    end
   end
 
   # Returns the zip code for an address
   def self.zip(address)
     geocodeResponse = get_data(address)
-    components = geocodeResponse["results"][0]["address_components"]
-    # The postal code is always the last address component returned
-    # TODO: Find a cleaner method of finding the postal code in the JSON
-    zip = components[components.length - 1]["long_name"]
+    if geocodeResponse["status"] == "ZERO_RESULTS"
+      zip = "Address not found."
+    else
+      components = geocodeResponse["results"][0]["address_components"]
+      # The postal code is always the last address component returned
+      # TODO: Find a cleaner method of finding the postal code in the JSON
+      zip = components[components.length - 1]["long_name"]
+    end
   end
 
   # Returns a properly formatted address
   def self.format(address)
     geocodeResponse = get_data(address)
-    formatted = geocodeResponse["results"][0]["formatted_address"]
+    if geocodeResponse["status"] == "ZERO_RESULTS"
+      formatted = "Address not found."
+    else
+      formatted = geocodeResponse["results"][0]["formatted_address"]
+    end
   end
 
   private
