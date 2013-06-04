@@ -3,7 +3,8 @@ require 'open-uri'
 require 'json'
 require 'net/http'
 
-class Locationator
+module Locationator
+  
   def self.lat(address)
     geocodeURL = get_url(address)
     geocodeResponse = get_data(geocodeURL)
