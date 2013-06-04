@@ -25,16 +25,16 @@ module Locationator
 
   private
   
-  def self.get_url(address)
-    geocodePrimary = "http://maps.googleapis.com/maps/api/geocode/json?address="
-    geocodeAddress = URI::encode(address)
-    geocodeSensor = "&sensor=false"
-    geocodeURL = geocodePrimary + geocodeAddress + geocodeSensor
-  end
+    def self.get_url(address)
+      geocodePrimary = "http://maps.googleapis.com/maps/api/geocode/json?address="
+      geocodeAddress = URI::encode(address)
+      geocodeSensor = "&sensor=false"
+      geocodeURL = geocodePrimary + geocodeAddress + geocodeSensor
+    end
 
-  def self.get_data(url)
-    response = Net::HTTP.get_response(URI.parse(url))
-    data = JSON.parse(response.body)
-  end
+    def self.get_data(url)
+      response = Net::HTTP.get_response(URI.parse(url))
+      data = JSON.parse(response.body)
+    end
 
 end
