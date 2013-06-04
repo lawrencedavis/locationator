@@ -41,6 +41,7 @@ module Locationator
     geocodeURL = get_url(address)
     geocodeResponse = get_data(geocodeURL)
     formatted = geocodeResponse["results"][0]["formatted_address"]
+  end
 
   private
     
