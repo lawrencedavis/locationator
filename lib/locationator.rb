@@ -7,15 +7,13 @@ module Locationator
 
   # Returns the latitude
   def self.lat(address)
-    geocodeURL = get_url(address)
-    geocodeResponse = get_data(geocodeURL)
+    geocodeResponse = get_data(address)
     lat = geocodeResponse["results"][0]["geometry"]["location"]["lat"]
   end
 
   # Returns the longitude
   def self.lng(address)
-    geocodeURL = get_url(address)
-    geocodeResponse = get_data(geocodeURL)
+    geocodeResponse = get_data(address)
     lng = geocodeResponse["results"][0]["geometry"]["location"]["lng"]
   end
 
@@ -28,8 +26,7 @@ module Locationator
 
   # Returns the zip code for an address
   def self.zip(address)
-    geocodeURL = get_url(address)
-    geocodeResponse = get_data(geocodeURL)
+    geocodeResponse = get_data(address)
     components = geocodeResponse["results"][0]["address_components"]
     # The postal code is always the last address component returned
     # TODO: Find a cleaner method of finding the postal code in the JSON
@@ -38,24 +35,19 @@ module Locationator
 
   # Returns a properly formatted address
   def self.format(address)
-    geocodeURL = get_url(address)
-    geocodeResponse = get_data(geocodeURL)
+    geocodeResponse = get_data(address)
     formatted = geocodeResponse["results"][0]["formatted_address"]
   end
 
   private
     
     # Builds the URL that we need to get our JSON response from Google
-    def self.get_url(address)
+    def self.get_data(address)
       geocodePrimary = "http://maps.googleapis.com/maps/api/geocode/json?address="
       geocodeAddress = URI::encode(address)
       geocodeSensor = "&sensor=false"
       geocodeURL = geocodePrimary + geocodeAddress + geocodeSensor
-    end
-
-    # Sends the URL to Google and parses the response
-    def self.get_data(url)
-      response = Net::HTTP.get_response(URI.parse(url))
+      response = Net::HTTP.get_response(URI.parse(geocodeURL))
       data = JSON.parse(response.body)
     end
 
