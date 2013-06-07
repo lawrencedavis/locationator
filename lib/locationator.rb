@@ -8,28 +8,33 @@ module Locationator
   # Returns the latitude
   def self.lat(address)
     geocodeResponse = get_data(address)
-    result = geocodeResponse["status"] == "ZERO_RESULTS" ? "Address not found." : geocodeResponse["results"][0]["geometry"]["location"]["lat"]
+    result = geocodeResponse["status"] == "ZERO_RESULTS" ? nil : geocodeResponse["results"][0]["geometry"]["location"]["lat"]
   end
 
   # Returns the longitude
   def self.lng(address)
     geocodeResponse = get_data(address)
-    result = geocodeResponse["status"] == "ZERO_RESULTS" ? "Address not found." : geocodeResponse["results"][0]["geometry"]["location"]["lng"]
+    result = geocodeResponse["status"] == "ZERO_RESULTS" ? nil : geocodeResponse["results"][0]["geometry"]["location"]["lng"]
   end
 
   # Builds an array of the latitude and longitude
   def self.lat_lng(address)
-    lat_lng_array = []
-    lat_lng_array.push(self.lat(address))
-    lat_lng_array.push(self.lng(address))
-    result = lat_lng_array == ["Address not found.", "Address not found."] ? "Address not found." : lat_lng_array 
+    myArray = []
+    geocodeResponse = get_data(address)
+    myArray.push(geocodeResponse["status"] == "ZERO_RESULTS" ? nil : geocodeResponse["results"][0]["geometry"]["location"]["lat"])
+    myArray.push(geocodeResponse["status"] == "ZERO_RESULTS" ? nil : geocodeResponse["results"][0]["geometry"]["location"]["lng"])
+    if myArray == [nil, nil]
+      result = nil
+    else
+      result = myArray
+    end
   end
 
   # Returns the zip code for an address
   def self.zip(address)
     geocodeResponse = get_data(address)
     if geocodeResponse["status"] == "ZERO_RESULTS"
-      zip = "Address not found."
+      zip = nil
     else
       components = geocodeResponse["results"][0]["address_components"]
       # The postal code is always the last address component returned
@@ -41,7 +46,7 @@ module Locationator
   # Returns a properly formatted address
   def self.format(address)
     geocodeResponse = get_data(address)
-    result = geocodeResponse["status"] == "ZERO_RESULTS" ? "Address not found." : geocodeResponse["results"][0]["formatted_address"] 
+    result = geocodeResponse["status"] == "ZERO_RESULTS" ? nil : geocodeResponse["results"][0]["formatted_address"] 
   end
 
   # Returns the latitude based on the current user's IP address
@@ -59,7 +64,7 @@ module Locationator
   # Returns an array of the latitude and longitude based on the current user's IP address
   def self.ip_lat_lng
     myArray = []
-    geocodeResponse = get_data(address)
+    geocodeResponse = get_ip_data
     myArray.push(geocodeResponse["latitude"])
     myArray.push(geocodeResponse["longitude"])
     result = myArray
