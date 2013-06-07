@@ -59,8 +59,9 @@ module Locationator
   # Returns an array of the latitude and longitude based on the current user's IP address
   def self.ip_lat_lng
     myArray = []
-    myArray.push(self.ip_lat)
-    myArray.push(self.ip_lng)
+    geocodeResponse = get_data(address)
+    myArray.push(geocodeResponse["latitude"])
+    myArray.push(geocodeResponse["longitude"])
     result = myArray
   end
 
