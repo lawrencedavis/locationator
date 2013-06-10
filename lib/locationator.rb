@@ -23,11 +23,7 @@ module Locationator
     geocodeResponse = get_data(address)
     myArray.push(geocodeResponse["status"] == "ZERO_RESULTS" ? nil : geocodeResponse["results"][0]["geometry"]["location"]["lat"])
     myArray.push(geocodeResponse["status"] == "ZERO_RESULTS" ? nil : geocodeResponse["results"][0]["geometry"]["location"]["lng"])
-    if myArray == [nil, nil]
-      result = nil
-    else
-      result = myArray
-    end
+    result = myArray == [nil, nil] ? nil : myArray
   end
 
   # Returns the zip code for an address
