@@ -43,9 +43,9 @@ describe Locationator do
       Locationator.zip(@location).should be_a(String)
     end
 
-    it "should return a string that is can be converted to an integer" do
+    it "should return a string that can be converted to an integer" do
       location = Locationator.zip(@location)
-      location.to_i.should be_a(Integer)
+      location.to_i.should_not eq(0)
     end
 
     it "should be 5 digits long" do
